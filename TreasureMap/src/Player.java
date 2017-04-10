@@ -1,25 +1,39 @@
+import java.util.Random;
+
 public class Player {
 
+    public int boardSize;
     public char[][] table;
     public Position position = new Position();
+    public Position startingPosition = new Position();
 
-    public void setTable(int size) {
-        table = new char[size][size];
+    Random rand = new Random();
+
+    public Player(int size){
+
+        this.boardSize = size;
+         this.table = new char[boardSize][boardSize];
+        this.startingPosition.x = rand.nextInt(boardSize);
+        this.startingPosition.y = rand.nextInt(boardSize);
+        this.position = this.startingPosition;
     }
 
     public void move(char direction){
+        System.out.println(position.x + "  "  + position.y);
         if(direction == 'u'){
-            position.y += 1;
-        }else if(direction == 'd'){
             position.y -= 1;
+        }else if(direction == 'd'){
+            position.y += 1;
         }else if(direction == 'l'){
             position.x -= 1;
         }else if(direction == 'r'){
             position.x += 1;
+        }else{
+            System.out.println("Invalid direction");
         }
 
         if(!this.setPosition(position)){
-            System.out.println("Invalid input");
+            System.out.println("Out of bounds");
 
             //undo previous move
             if(direction == 'u'){
