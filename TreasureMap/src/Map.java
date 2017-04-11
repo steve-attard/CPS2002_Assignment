@@ -10,7 +10,7 @@ public class Map {
 
 
     public boolean setMapSize(int x, int y){
-        if(x > 50 && x < 5){
+        if(x > 50 || x < 5){
             return false;
         }
         else{
@@ -38,8 +38,5 @@ public class Map {
             }
             table[random_x][random_y] = 'w';
         }
-    }
-    public char getTileType(int x, int y){
-        return table[x][y];
     }
 }

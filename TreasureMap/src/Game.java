@@ -11,8 +11,6 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
 
-        int x_pos;
-        int y_pos;
         int minMapSize = 0;
         int maxMapSize = 50;
 
@@ -50,7 +48,7 @@ public class Game {
         }
 
         boolean treasureFound = false;
-        char dir = ' ';
+        char dir;
 
         Player currentPlayer = new Player(mapsize);
 
@@ -58,20 +56,35 @@ public class Game {
             for(int i = 0; i < playerno; i++){
                 //player position before moving needs to be stored.
                 System.out.println("player "+ (i+1) +" move");
-                Position currentPlayerPos = new Position();
-                x_pos = currentPlayerPos.x;
-                y_pos = currentPlayerPos.y;
+                System.out.println("player "+ (i+1) +" position: ");
+
                 currentPlayer = players.get(i);
-                int x = currentPlayer.position.x;
-                int y = currentPlayer.position.y;
-                currentPlayerPos.x = x;
-                currentPlayerPos.y = y;
+                System.out.println(currentPlayer.position.x + "  "  + currentPlayer.position.y);
+
                 System.out.println("Please input a direction to move");
-                dir = sc.next().charAt(0);
+                dir = sc.next().toLowerCase().charAt(0);
+                while(dir!='u' && dir!='d' && dir!='l' && dir!='r'){
+                    System.out.println("Invalid input");
+                    dir = sc.next().toLowerCase().charAt(0);
+                }
                 currentPlayer.move(dir);
 
+                System.out.println("player "+ (i+1) +" position: ");
+                System.out.println(currentPlayer.position.x + "  "  + currentPlayer.position.y);
+
                 //validating correct move
-                if(currentPlayer.position.x == x_pos && currentPlayer.position.y == y_pos){
+                if(!currentPlayer.isPositionInBounds(currentPlayer.position)){
+                    System.out.println("Out of Bounds!");
+                    //undo previous move
+                    if(dir == 'u'){
+                        currentPlayer.position.y += 1;
+                    }else if(dir == 'd'){
+                        currentPlayer.position.y -= 1;
+                    }else if(dir == 'l'){
+                        currentPlayer.position.x += 1;
+                    }else if(dir == 'r'){
+                        currentPlayer.position.x -= 1;
+                    }
                     i--;
                 }
                 else{
@@ -80,11 +93,17 @@ public class Game {
 
                     //if player landed on water tile, reset starting position
                     if(map.table[currentPlayer.position.x][currentPlayer.position.y] == 'w'){
+                        System.out.println("You landed on a water tile!");
                         currentPlayer.position = currentPlayer.startingPosition;
                     }
                     else if(map.table[currentPlayer.position.x][currentPlayer.position.y] == 't'){
+                        System.out.println("Congratulations, you found the treasure!");
                         treasureFound = true;
                     }
+                    else{
+                        System.out.println("You landed on a grass tile!");
+                    }
+                    currentPlayer.printTable();
                 }
 
             }

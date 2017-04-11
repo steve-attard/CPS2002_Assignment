@@ -8,7 +8,7 @@ public class PlayerTest {
 
     @Before
     public void test_player_functions() {
-        player = new Player();
+        player = new Player(5);
     }
 
     @After
@@ -19,15 +19,10 @@ public class PlayerTest {
     @Test
     public void setPosition_test() {
         Position p1 = new Position();
-        Position p2 = new Position();
         p1.x = -1;
         p1.y = -1;
-        p2.x = 3;
-        p2.y = 3;
 
-
-        Assert.assertEquals(false, player.setPosition(p1));
-        Assert.assertEquals(true, player.setPosition(p2));
+        Assert.assertEquals(false, player.isPositionInBounds(p1));
     }
 
 }

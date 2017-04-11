@@ -22,15 +22,5 @@ public class MapTest {
         Assert.assertEquals(true, map.setMapSize(5,5));
     }
 
-    @Test
-    public void getTileType_test() {
-        Map map = new Map();
-        map.size = 5;
-        map.table[3][3] = 'g';
-        map.table[1][1] = 'w';
-        Assert.assertEquals('g', map.getTileType(3,3));
-        Assert.assertEquals('w', map.setMapSize(1,1));
-    }
-
 }
 
