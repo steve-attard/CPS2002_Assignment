@@ -9,12 +9,16 @@ public class Player {
 
     Random rand = new Random();
 
-    public Player(int size){
+    public Player(int size, Map map){
 
         this.boardSize = size;
         this.table = new char[boardSize][boardSize];
         this.startingPosition.x = rand.nextInt(boardSize);
         this.startingPosition.y = rand.nextInt(boardSize);
+        while(map.table[this.startingPosition.x][this.startingPosition.y] != 'g'){
+            this.startingPosition.x = rand.nextInt(boardSize);
+            this.startingPosition.y = rand.nextInt(boardSize);
+        }
         this.position.x = this.startingPosition.x;
         this.position.y = this.startingPosition.y;
     }
