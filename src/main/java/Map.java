@@ -38,4 +38,8 @@ public class Map {
             table[random_x][random_y] = 'w';
         }
     }
+
+    public char getTileType(Position p) {
+        return this.table[p.x][p.y];
+    }
 }

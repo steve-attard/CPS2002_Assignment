@@ -78,15 +78,14 @@ public class Game {
                     i--;
                 }
                 else{
-                    currentPlayer.table[currentPlayer.position.x][currentPlayer.position.y] =
-                    map.table[currentPlayer.position.x][currentPlayer.position.y];
+                    currentPlayer.table[currentPlayer.position.x][currentPlayer.position.y] = map.getTileType(currentPlayer.position);
 
                     //if player landed on water tile, reset starting position
-                    if(map.table[currentPlayer.position.x][currentPlayer.position.y] == 'w'){
+                    if(map.getTileType(currentPlayer.position) == 'w'){
                         System.out.println("You landed on a water tile!");
                         currentPlayer.position = currentPlayer.startingPosition;
                     }
-                    else if(map.table[currentPlayer.position.x][currentPlayer.position.y] == 't'){
+                    else if(map.getTileType(currentPlayer.position) == 't'){
                         System.out.println("Congratulations, you found the treasure!");
                         treasureFound = true;
                     }
