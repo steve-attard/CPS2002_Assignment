@@ -18,6 +18,7 @@ public class Map {
         }
 
     }
+
     public void generate(){
 
         int random_x = rand.nextInt(size);

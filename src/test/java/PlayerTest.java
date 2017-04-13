@@ -8,7 +8,10 @@ public class PlayerTest {
 
     @Before
     public void test_player_functions() {
-        player = new Player(5);
+        Map map = new Map();
+        map.size = 5;
+        map.generate();
+        player = new Player(5, map);
     }
 
     @After
