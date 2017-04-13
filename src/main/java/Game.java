@@ -74,15 +74,7 @@ public class Game {
                 if(!currentPlayer.isPositionInBounds(currentPlayer.position)){
                     System.out.println("Out of Bounds!");
                     //undo previous move
-                    if(dir == 'u'){
-                        currentPlayer.position.y += 1;
-                    }else if(dir == 'd'){
-                        currentPlayer.position.y -= 1;
-                    }else if(dir == 'l'){
-                        currentPlayer.position.x += 1;
-                    }else if(dir == 'r'){
-                        currentPlayer.position.x -= 1;
-                    }
+                    currentPlayer.undoPreviousMove(dir);
                     i--;
                 }
                 else{

@@ -28,4 +28,22 @@ public class PlayerTest {
         Assert.assertEquals(false, player.isPositionInBounds(p1));
     }
 
+    @Test
+    public void undoPreviousMove_test() {
+        player.position.x = -1;
+        player.position.y = 2;
+        player.undoPreviousMove('l');
+        Assert.assertEquals(0, player.position.x);
+
+    }
+
+    @Test
+    public void move_test() {
+        player.position.x = 0;
+        player.position.y = 2;
+        player.move('d');
+        Assert.assertEquals(0,player.position.x);
+        Assert.assertEquals(3, player.position.y);
+    }
+
 }

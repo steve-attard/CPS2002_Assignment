@@ -37,7 +37,6 @@ public class Player {
 
         if(!this.isPositionInBounds(position)){
             System.out.println("Out of bounds");
-
         }
 
     }
@@ -47,6 +46,18 @@ public class Player {
             return true;
         }
         return false;
+    }
+
+    public void undoPreviousMove(char dir) {
+        if(dir == 'u'){
+            this.position.y += 1;
+        }else if(dir == 'd'){
+            this.position.y -= 1;
+        }else if(dir == 'l'){
+            this.position.x += 1;
+        }else if(dir == 'r'){
+            this.position.x -= 1;
+        }
     }
 
     public void printTable() {
