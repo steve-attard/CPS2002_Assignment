@@ -17,7 +17,7 @@ public class Map {
 
     }
 
-    public void generate(){
+    public void generate(boolean safe){
 
         int random_x = rand.nextInt(size);
         int random_y = rand.nextInt(size);
@@ -30,7 +30,16 @@ public class Map {
         }
 
         table[random_x][random_y] = 't';
-        for(int i = 0; i < 2; i++){
+
+        int watertiles = 0;
+        if(safe) {
+            watertiles = rand.nextInt((int)(size*size*0.1)) + 1;
+        }
+        else {
+            watertiles = rand.nextInt((int)((size*size*0.35)-(size*size*0.25))) + (int)(size*size*0.25);
+        }
+        System.out.println("watertiles = "+ watertiles);
+        for(int i = 0; i < watertiles; i++){
             while(table[random_x][random_y]  == 't' || table[random_x][random_y] == 'w'){
                 random_x = rand.nextInt(size);
                 random_y = rand.nextInt(size);

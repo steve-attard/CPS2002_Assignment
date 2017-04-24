@@ -32,7 +32,7 @@ public class GameTest {
     public void printTurnAndPosition_test(){
         Map map = new Map();
         map.size = 5;
-        map.generate();
+        map.generate(true);
         Player p = new Player(5, map);
         Assert.assertEquals("Player 1's turn\nPlayer 1's current position: ("+p.position.x+","+p.position.y+")", game.printTurnAndPosition(1, p));
     }

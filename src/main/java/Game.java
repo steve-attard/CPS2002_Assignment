@@ -40,7 +40,7 @@ public class Game {
         }
 
         map.size = mapsize;
-        map.generate();
+        map.generate(false);
 
         ArrayList<Player> players = new ArrayList<Player>();
         for(int i = 0; i < playerno; i++){
