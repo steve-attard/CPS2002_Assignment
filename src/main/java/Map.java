@@ -17,7 +17,7 @@ public class Map {
 
     }
 
-    public void generate(boolean safe){
+    public void generate(int type){
 
         int random_x = rand.nextInt(size);
         int random_y = rand.nextInt(size);
@@ -32,11 +32,14 @@ public class Map {
         table[random_x][random_y] = 't';
 
         int watertiles = 0;
-        if(safe) {
+        if(type == 1) {
             watertiles = rand.nextInt((int)(size*size*0.1)) + 1;
         }
-        else {
+        else if(type == 2){
             watertiles = rand.nextInt((int)((size*size*0.35)-(size*size*0.25))) + (int)(size*size*0.25);
+        }
+        else{
+            System.out.println("Feature not yet added!");
         }
         System.out.println("watertiles = "+ watertiles);
         for(int i = 0; i < watertiles; i++){
@@ -46,6 +49,10 @@ public class Map {
             }
             table[random_x][random_y] = 'w';
         }
+    }
+
+    public void showTurnPlayer(char[][] playTable){
+
     }
 
     public char getTileType(Position p) {

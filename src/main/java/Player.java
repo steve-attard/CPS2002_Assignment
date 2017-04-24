@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
@@ -7,13 +6,12 @@ public class Player {
     public char[][] table;
     public Position position = new Position();
     public Position startingPosition = new Position();
-    boolean collaborative;
     int teamNo;
-    ArrayList<Position> teamPos = new ArrayList<Position>();
+    int playerNo;
 
     Random rand = new Random();
 
-    public Player(int size, Map map){
+    public Player(int size, Map map, int playerNumber){
 
         this.boardSize = size;
         this.table = new char[boardSize][boardSize];
@@ -25,9 +23,10 @@ public class Player {
         }
         this.position.x = this.startingPosition.x;
         this.position.y = this.startingPosition.y;
+        this.playerNo = playerNumber;
     }
 
-    public Player(int size, Map map, int teamNo){
+    public Player(int size, Map map, int teamNo, int playerNumber){
 
         this.boardSize = size;
         this.table = new char[boardSize][boardSize];
@@ -40,6 +39,7 @@ public class Player {
         this.position.x = this.startingPosition.x;
         this.position.y = this.startingPosition.y;
         this.teamNo = teamNo;
+        this.playerNo = playerNumber;
     }
 
 
@@ -59,7 +59,6 @@ public class Player {
             System.out.println("Out of bounds");
 
         }
-
     }
 
     public boolean isPositionInBounds(Position p){

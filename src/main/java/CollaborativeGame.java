@@ -45,13 +45,21 @@ public class CollaborativeGame extends Game {
         }
 
         map.size = mapsize;
-        //true for safe
-        //false for hazardous
-        map.generate(true);
+        System.out.println("Please Enter the type of Map you would like");
+        System.out.println("1. Safe");
+        System.out.println("2. Hazardous");
+        int choice = sc.nextInt();
+        while(choice > 2 || choice < 1){
+            System.out.println("Wrong entry. Please Enter the type of Map you would like");
+            System.out.println("1. Safe");
+            System.out.println("2. Hazardous");
+            choice = sc.nextInt();
+        }
+        map.generate(choice);
         ArrayList<Player> players = new ArrayList<Player>();
 
         for (int i = 0; i < playerno; i++) {
-            Player p = new Player(mapsize, map, 1);
+            Player p = new Player(mapsize, map, 1, i+1);
             players.add(p);
         }
         ArrayList<Player> tempList = new ArrayList<Player>(players);
@@ -67,23 +75,25 @@ public class CollaborativeGame extends Game {
         }
 
         for(Player p : players){
-            System.out.println(p.teamNo);
+            System.out.println("Player " + p.playerNo + " is on team " + p.teamNo);
         }
 
-        generateHTMLFiles(players);
+        generateHTMLFile();
         boolean treasureFound = false;
         char dir;
 
         Player currentPlayer = new Player(mapsize, map, 1);
 
+        System.out.println("-------------------------------------------------------");
+
         while (!treasureFound) {
             for (int i = 0; i < playerno; i++) {
-                generateHTMLFiles(players);
-                System.out.println("player " + (i + 1) + " move");
-                System.out.println("player " + (i + 1) + " position: ");
+                System.out.println("Player " + (i + 1) + " turn");
+                System.out.println("Player " + (i + 1) + " position: ");
 
                 currentPlayer = players.get(i);
-                System.out.println(currentPlayer.position.x + "  " + currentPlayer.position.y);
+                overwriteHTMLFile(currentPlayer);
+                System.out.println("x coordinate: " + (currentPlayer.position.x+1) + ", y coordinate: " + (currentPlayer.position.y+1));
 
                 System.out.println("Please input a direction to move");
                 dir = sc.next().toLowerCase().charAt(0);
@@ -94,7 +104,7 @@ public class CollaborativeGame extends Game {
                 currentPlayer.move(dir);
 
                 System.out.println("player " + (i + 1) + " position: ");
-                System.out.println(currentPlayer.position.x + "  " + currentPlayer.position.y);
+                System.out.println("x coordinate: " + (currentPlayer.position.x+1) + ", y coordinate: " + (currentPlayer.position.y+1));
 
                 //validating correct move
                 if (!currentPlayer.isPositionInBounds(currentPlayer.position)) {
@@ -119,6 +129,7 @@ public class CollaborativeGame extends Game {
                                     map.table[currentPlayer.position.x][currentPlayer.position.y];
                         }
                     }
+                    overwriteHTMLFile(currentPlayer);
                     //if player landed on water tile, reset starting position
                     if (map.table[currentPlayer.position.x][currentPlayer.position.y] == 'w') {
                         System.out.println("You landed on a water tile!");
@@ -130,7 +141,10 @@ public class CollaborativeGame extends Game {
                     } else {
                         System.out.println("You landed on a grass tile!");
                     }
-                    currentPlayer.printTable();
+                    System.out.println("Please Press enter to finish your turn");
+                    String a = sc.next();
+                    System.out.println("-------------------------------------------------------");
+
                 }
 
             }
