@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
@@ -6,6 +7,9 @@ public class Player {
     public char[][] table;
     public Position position = new Position();
     public Position startingPosition = new Position();
+    boolean collaborative;
+    int teamNo;
+    ArrayList<Position> teamPos = new ArrayList<Position>();
 
     Random rand = new Random();
 
@@ -23,6 +27,22 @@ public class Player {
         this.position.y = this.startingPosition.y;
     }
 
+    public Player(int size, Map map, int teamNo){
+
+        this.boardSize = size;
+        this.table = new char[boardSize][boardSize];
+        this.startingPosition.x = rand.nextInt(boardSize);
+        this.startingPosition.y = rand.nextInt(boardSize);
+        while(map.table[this.startingPosition.x][this.startingPosition.y] != 'g'){
+            this.startingPosition.x = rand.nextInt(boardSize);
+            this.startingPosition.y = rand.nextInt(boardSize);
+        }
+        this.position.x = this.startingPosition.x;
+        this.position.y = this.startingPosition.y;
+        this.teamNo = teamNo;
+    }
+
+
     public void move(char direction){
 
         if(direction == 'u'){
@@ -37,6 +57,7 @@ public class Player {
 
         if(!this.isPositionInBounds(position)){
             System.out.println("Out of bounds");
+
         }
 
     }
@@ -46,18 +67,6 @@ public class Player {
             return true;
         }
         return false;
-    }
-
-    public void undoPreviousMove(char dir) {
-        if(dir == 'u'){
-            this.position.y += 1;
-        }else if(dir == 'd'){
-            this.position.y -= 1;
-        }else if(dir == 'l'){
-            this.position.x += 1;
-        }else if(dir == 'r'){
-            this.position.x -= 1;
-        }
     }
 
     public void printTable() {

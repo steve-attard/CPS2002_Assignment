@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Game {
 
@@ -8,117 +7,12 @@ public class Game {
 
     public Map map = new Map();
 
-    public void startGame() throws IOException {
-
-        Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
-
-        int minMapSize = 0;
-        int maxMapSize = 50;
-
-        System.out.println("Welcome to Treasure Map Game");
-
-        System.out.println("Please Enter the number of players");
-        int playerno = sc.nextInt();
-
-        while(!setNumPlayers(playerno)){
-            System.out.println("Please Enter the number of players");
-            playerno = sc.nextInt();
-        }
-
-        turns  = playerno;
-
-        minMapSize = setMinMapSize(playerno);
-
-        System.out.println("Please Enter the size of the map");
-        int mapsize = sc.nextInt();
-
-        while(mapsize > maxMapSize || mapsize < minMapSize){
-            System.out.println("Invalid map size");
-            System.out.println("Please enter a valid map size");
-            mapsize = sc.nextInt();
-        }
-
-        map.size = mapsize;
-        map.generate(false);
-
-        ArrayList<Player> players = new ArrayList<Player>();
-        for(int i = 0; i < playerno; i++){
-            Player p = new Player(mapsize, map);
-            players.add(p);
-        }
-
-        generateHTMLFiles(players);
-
-        boolean treasureFound = false;
-        char dir;
-
-        Player currentPlayer = new Player(mapsize, map);
-
-        while(!treasureFound){
-            for(int i = 0; i < playerno; i++){
-                generateHTMLFiles(players);
-
-                currentPlayer = players.get(i);
-                System.out.println(printTurnAndPosition(i+1, currentPlayer));
-
-                System.out.println("Please input a direction to move");
-                dir = sc.next().toLowerCase().charAt(0);
-                while(dir!='u' && dir!='d' && dir!='l' && dir!='r'){
-                    System.out.println("Invalid input");
-                    dir = sc.next().toLowerCase().charAt(0);
-                }
-                currentPlayer.move(dir);
-
-                //validating correct move
-                if(!currentPlayer.isPositionInBounds(currentPlayer.position)){
-                    System.out.println("Out of Bounds!");
-                    //undo previous move
-                    currentPlayer.undoPreviousMove(dir);
-                    i--;
-                }
-                else{
-                    currentPlayer.table[currentPlayer.position.x][currentPlayer.position.y] = map.getTileType(currentPlayer.position);
-
-                    //if player landed on water tile, reset starting position
-                    if(map.getTileType(currentPlayer.position) == 'w'){
-                        System.out.println("You landed on a water tile!");
-                        currentPlayer.position = currentPlayer.startingPosition;
-                    }
-                    else if(map.getTileType(currentPlayer.position) == 't'){
-                        System.out.println("Congratulations, you found the treasure!");
-                        treasureFound = true;
-                    }
-                    else{
-                        System.out.println("You landed on a grass tile!");
-                    }
-                    currentPlayer.printTable();
-                }
-
-            }
-        }
-
-    }
-
     public boolean setNumPlayers(int n){
         if(n<2 || n>8) {
             System.out.println("Invalid number of players!");
             return false;
         }
         return true;
-    }
-
-    public int setMinMapSize(int players) {
-        if(players > 1 && players < 5){
-            return  5;
-        }
-        else{
-            return 8;
-        }
-    }
-
-    public String printTurnAndPosition(int turn, Player player) {
-        return "Player "+turn+"'s turn\nPlayer "+turn+"'s current position: ("+player.position.x+","+player.position.y+")";
     }
 
     public void generateHTMLFiles(ArrayList<Player> players) throws IOException{
@@ -203,7 +97,6 @@ public class Game {
         }
 
         bw1.close();
-
 
     }
 
