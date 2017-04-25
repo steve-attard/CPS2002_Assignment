@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Random;
 
 public class Map {
 
@@ -51,9 +51,6 @@ public class Map {
         }
     }
 
-    public void showTurnPlayer(char[][] playTable){
-
-    }
 
     public char getTileType(Position p) {
         return this.table[p.x][p.y];

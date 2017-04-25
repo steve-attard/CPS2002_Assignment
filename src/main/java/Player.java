@@ -68,17 +68,16 @@ public class Player {
         return false;
     }
 
-    public void printTable() {
-        for(int i=0; i<table.length; i++) {
-            for(int j=0; j<table.length; j++) {
-                if(table[j][i] != 'g' && table[i][j] != 'w' && table[j][i] != 't'){
-                    System.out.print("| |");
-                }
-                else {
-                    System.out.print("|"+table[j][i]+"|");
-                }
-            }
-            System.out.println();
+    public void undoPreviousMove(char dir) {
+        if(dir == 'u'){
+            this.position.y += 1;
+        }else if(dir == 'd'){
+            this.position.y -= 1;
+        }else if(dir == 'l'){
+            this.position.x += 1;
+        }else if(dir == 'r'){
+            this.position.x -= 1;
         }
     }
+
 }

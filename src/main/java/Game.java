@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 
 public class Game {
 
@@ -13,6 +12,19 @@ public class Game {
             return false;
         }
         return true;
+    }
+
+    public int setMinMapSize(int players) {
+        if(players > 1 && players < 5){
+            return 5;
+        }
+        else{
+            return 8;
+        }
+    }
+
+    public String printTurnAndPosition(int turn, Player player) {
+        return "Player "+turn+"'s turn\nPlayer "+turn+"'s current position: ("+player.position.x+","+player.position.y+")";
     }
 
     public void overwriteHTMLFile(Player currentPlayer) throws IOException{

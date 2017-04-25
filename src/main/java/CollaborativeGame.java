@@ -2,6 +2,7 @@ import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CollaborativeGame extends Game {
@@ -13,48 +14,60 @@ public class CollaborativeGame extends Game {
 
         int minMapSize = 0;
         int maxMapSize = 50;
+        int playerno = 0;
 
-        System.out.println("Please Enter the number of players");
-        int playerno = sc.nextInt();
-        while (!setNumPlayers(playerno)) {
-            System.out.println("Please Enter the number of players");
-            playerno = sc.nextInt();
-        }
+        do {
+            try {
+                System.out.println("Please Enter the number of players");
+                playerno = sc.nextInt();
+            } catch (InputMismatchException e) {
 
-        System.out.println("Please Enter the number of Teams");
-        int teamno = sc.nextInt();
-        while(teamno > playerno || teamno < 2){
-            System.out.println("Please Enter the number of Teams (Min 2)");
-            teamno = sc.nextInt();
-        }
+            }
+            sc.nextLine(); // clears the buffer
+        } while (!setNumPlayers(playerno));
+
+        int teamno = 0;
+
+        do {
+            try {
+                System.out.println("Please Enter the number of Teams");
+                teamno = sc.nextInt();
+            } catch (InputMismatchException e) {
+
+            }
+            sc.nextLine(); // clears the buffer
+        } while (teamno > playerno || teamno < 2);
 
         turns = playerno;
 
-        if (playerno > 1 && playerno < 5) {
-            minMapSize = 5;
-        } else {
-            minMapSize = 8;
-        }
+        minMapSize = setMinMapSize(playerno);
 
-        System.out.println("Please Enter the size of the map");
-        int mapsize = sc.nextInt();
-        while (mapsize > maxMapSize || mapsize < minMapSize) {
-            System.out.println("Invalid map size");
-            System.out.println("Please enter a valid map size");
-            mapsize = sc.nextInt();
-        }
+        int mapsize = 0;
+        do {
+            try {
+                System.out.println("Please Enter the size of the map");
+                mapsize = sc.nextInt();
+            } catch (InputMismatchException e) {
+
+            }
+            sc.nextLine(); // clears the buffer
+        } while (mapsize > maxMapSize || mapsize < minMapSize);
 
         map.size = mapsize;
-        System.out.println("Please Enter the type of Map you would like");
-        System.out.println("1. Safe");
-        System.out.println("2. Hazardous");
-        int choice = sc.nextInt();
-        while(choice > 2 || choice < 1){
-            System.out.println("Wrong entry. Please Enter the type of Map you would like");
-            System.out.println("1. Safe");
-            System.out.println("2. Hazardous");
-            choice = sc.nextInt();
-        }
+
+        int choice = 0;
+        do {
+            try {
+                System.out.println("Please Enter the type of Map you would like");
+                System.out.println("1. Safe");
+                System.out.println("2. Hazardous");
+                choice = sc.nextInt();
+            } catch (InputMismatchException e) {
+
+            }
+            sc.nextLine(); // clears the buffer
+        } while (choice > 2 || choice < 1);
+
         map.generate(choice);
         ArrayList<Player> players = new ArrayList<Player>();
 
@@ -88,12 +101,11 @@ public class CollaborativeGame extends Game {
 
         while (!treasureFound) {
             for (int i = 0; i < playerno; i++) {
-                System.out.println("Player " + (i + 1) + " turn");
-                System.out.println("Player " + (i + 1) + " position: ");
 
                 currentPlayer = players.get(i);
                 overwriteHTMLFile(currentPlayer);
-                System.out.println("x coordinate: " + (currentPlayer.position.x+1) + ", y coordinate: " + (currentPlayer.position.y+1));
+
+                System.out.println(printTurnAndPosition(i+1, currentPlayer));
 
                 System.out.println("Please input a direction to move");
                 dir = sc.next().toLowerCase().charAt(0);
@@ -103,26 +115,15 @@ public class CollaborativeGame extends Game {
                 }
                 currentPlayer.move(dir);
 
-                System.out.println("player " + (i + 1) + " position: ");
-                System.out.println("x coordinate: " + (currentPlayer.position.x+1) + ", y coordinate: " + (currentPlayer.position.y+1));
-
                 //validating correct move
                 if (!currentPlayer.isPositionInBounds(currentPlayer.position)) {
-                    System.out.println("Out of Bounds!");
                     //undo previous move
-                    if (dir == 'u') {
-                        currentPlayer.position.y += 1;
-                    } else if (dir == 'd') {
-                        currentPlayer.position.y -= 1;
-                    } else if (dir == 'l') {
-                        currentPlayer.position.x += 1;
-                    } else if (dir == 'r') {
-                        currentPlayer.position.x -= 1;
-                    }
+                    currentPlayer.undoPreviousMove(dir);
+
                     i--;
                 } else {
-                    currentPlayer.table[currentPlayer.position.x][currentPlayer.position.y] =
-                            map.table[currentPlayer.position.x][currentPlayer.position.y];
+
+                    currentPlayer.table[currentPlayer.position.x][currentPlayer.position.y] = map.getTileType(currentPlayer.position);
                     for(Player p : players){
                         if(p.teamNo == currentPlayer.teamNo){
                             p.table[currentPlayer.position.x][currentPlayer.position.y] =
@@ -131,10 +132,11 @@ public class CollaborativeGame extends Game {
                     }
                     overwriteHTMLFile(currentPlayer);
                     //if player landed on water tile, reset starting position
-                    if (map.table[currentPlayer.position.x][currentPlayer.position.y] == 'w') {
+                    if(map.getTileType(currentPlayer.position) == 'w'){
                         System.out.println("You landed on a water tile!");
                         currentPlayer.position = currentPlayer.startingPosition;
-                    } else if (map.table[currentPlayer.position.x][currentPlayer.position.y] == 't') {
+                    }
+                    else if(map.getTileType(currentPlayer.position) == 't') {
                         System.out.println("Congratulations, you found the treasure!");
                         System.out.println("Team " + currentPlayer.teamNo + " Wins");
                         treasureFound = true;
