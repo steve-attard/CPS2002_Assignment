@@ -25,7 +25,7 @@ public class MapTest {
     @Test
     public void getTileType_test() {
         map.size = 5 ;
-        map.generate(true);
+        map.generate(1);
         map.table[1][1] = 'g';
         Position p = new Position();
         p.x = 1;

@@ -41,7 +41,7 @@ public class Map {
         else{
             System.out.println("Feature not yet added!");
         }
-        System.out.println("watertiles = "+ watertiles);
+
         for(int i = 0; i < watertiles; i++){
             while(table[random_x][random_y]  == 't' || table[random_x][random_y] == 'w'){
                 random_x = rand.nextInt(size);

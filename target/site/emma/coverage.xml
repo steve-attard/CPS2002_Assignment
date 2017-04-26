@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- EMMA v2.1.5320 (stable) report, generated Mon Apr 24 11:31:22 CEST 2017 -->
+<?xml version="1.0" encoding="UTF-8"?><!-- EMMA v2.1.5320 (stable) report, generated Mon Apr 24 13:40:25 CEST 2017 -->
 
 <report>
   <stats>
@@ -6,20 +6,20 @@
     <classes value="5"/>
     <methods value="18"/>
     <srcfiles value="5"/>
-    <srclines value="185"/>
+    <srclines value="190"/>
   </stats>
   <data>
     <all name="all classes">
       <coverage type="class, %" value="80%  (4/5)"/>
       <coverage type="method, %" value="72%  (13/18)"/>
-      <coverage type="block, %" value="31%  (309/987)"/>
-      <coverage type="line, %" value="30%  (55/185)"/>
+      <coverage type="block, %" value="34%  (356/1050)"/>
+      <coverage type="line, %" value="32%  (61/190)"/>
 
       <package name="default package">
         <coverage type="class, %" value="80%  (4/5)"/>
         <coverage type="method, %" value="72%  (13/18)"/>
-        <coverage type="block, %" value="31%  (309/987)"/>
-        <coverage type="line, %" value="30%  (55/185)"/>
+        <coverage type="block, %" value="34%  (356/1050)"/>
+        <coverage type="line, %" value="32%  (61/190)"/>
 
         <srcfile name="Launcher.java">
           <coverage type="class, %" value="0%   (0/1)"/>
@@ -48,13 +48,13 @@
         <srcfile name="Game.java">
           <coverage type="class, %" value="100% (1/1)"/>
           <coverage type="method, %" value="67%  (4/6)"/>
-          <coverage type="block, %" value="10%  (58/585)"/>
+          <coverage type="block, %" value="10%  (58/586)"/>
           <coverage type="line, %" value="9%   (10/117)"/>
 
           <class name="Game">
             <coverage type="class, %" value="100% (1/1)"/>
             <coverage type="method, %" value="67%  (4/6)"/>
-            <coverage type="block, %" value="10%  (58/585)"/>
+            <coverage type="block, %" value="10%  (58/586)"/>
             <coverage type="line, %" value="9%   (10/117)"/>
 
             <method name="generateHTMLFiles (ArrayList): void">
@@ -64,7 +64,7 @@
             </method>
             <method name="startGame (): void">
               <coverage type="method, %" value="0%   (0/1)"/>
-              <coverage type="block, %" value="0%   (0/225)"/>
+              <coverage type="block, %" value="0%   (0/226)"/>
               <coverage type="line, %" value="0%   (0/52)"/>
             </method>
             <method name="Game (): void">
@@ -92,14 +92,14 @@
         <srcfile name="Player.java">
           <coverage type="class, %" value="100% (1/1)"/>
           <coverage type="method, %" value="80%  (4/5)"/>
-          <coverage type="block, %" value="48%  (128/269)"/>
-          <coverage type="line, %" value="57%  (25/44)"/>
+          <coverage type="block, %" value="54%  (145/269)"/>
+          <coverage type="line, %" value="61%  (27/44)"/>
 
           <class name="Player">
             <coverage type="class, %" value="100% (1/1)"/>
             <coverage type="method, %" value="80%  (4/5)"/>
-            <coverage type="block, %" value="48%  (128/269)"/>
-            <coverage type="line, %" value="57%  (25/44)"/>
+            <coverage type="block, %" value="54%  (145/269)"/>
+            <coverage type="line, %" value="61%  (27/44)"/>
 
             <method name="printTable (): void">
               <coverage type="method, %" value="0%   (0/1)"/>
@@ -118,8 +118,8 @@
             </method>
             <method name="Player (int, Map): void">
               <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="80%  (68/85)"/>
-              <coverage type="line, %" value="86%  (12/14)"/>
+              <coverage type="block, %" value="100% (85/85)"/>
+              <coverage type="line, %" value="100% (14/14)"/>
             </method>
             <method name="isPositionInBounds (Position): boolean">
               <coverage type="method, %" value="100% (1/1)"/>
@@ -131,24 +131,24 @@
         <srcfile name="Map.java">
           <coverage type="class, %" value="100% (1/1)"/>
           <coverage type="method, %" value="100% (4/4)"/>
-          <coverage type="block, %" value="100% (120/120)"/>
-          <coverage type="line, %" value="100% (19/19)"/>
+          <coverage type="block, %" value="82%  (150/182)"/>
+          <coverage type="line, %" value="96%  (23/24)"/>
 
           <class name="Map">
             <coverage type="class, %" value="100% (1/1)"/>
             <coverage type="method, %" value="100% (4/4)"/>
-            <coverage type="block, %" value="100% (120/120)"/>
-            <coverage type="line, %" value="100% (19/19)"/>
+            <coverage type="block, %" value="82%  (150/182)"/>
+            <coverage type="line, %" value="96%  (23/24)"/>
 
+            <method name="generate (boolean): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="79%  (123/155)"/>
+              <coverage type="line, %" value="94%  (17/18)"/>
+            </method>
             <method name="Map (): void">
               <coverage type="method, %" value="100% (1/1)"/>
               <coverage type="block, %" value="100% (8/8)"/>
               <coverage type="line, %" value="100% (2/2)"/>
-            </method>
-            <method name="generate (): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (93/93)"/>
-              <coverage type="line, %" value="100% (13/13)"/>
             </method>
             <method name="getTileType (Position): char">
               <coverage type="method, %" value="100% (1/1)"/>

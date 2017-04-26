@@ -10,8 +10,8 @@ public class PlayerTest {
     public void test_player_functions() {
         Map map = new Map();
         map.size = 5;
-        map.generate(true);
-        player = new Player(5, map);
+        map.generate(1);
+        player = new Player(5, map, 1);
     }
 
     @After
