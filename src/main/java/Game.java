@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Game {
 
@@ -6,7 +8,7 @@ public class Game {
 
     public Map map = new Map();
 
-    public boolean setNumPlayers(int n){
+    protected boolean setNumPlayers(int n){
         if(n<2 || n>8) {
             System.out.println("Invalid number of players!");
             return false;
@@ -14,7 +16,7 @@ public class Game {
         return true;
     }
 
-    public int setMinMapSize(int players) {
+    protected int setMinMapSize(int players) {
         if(players > 1 && players < 5){
             return 5;
         }
@@ -23,11 +25,11 @@ public class Game {
         }
     }
 
-    public String printTurnAndPosition(int turn, Player player) {
+    protected String printTurnAndPosition(int turn, Player player) {
         return "Player "+turn+"'s turn\nPlayer "+turn+"'s current position: ("+player.position.x+","+player.position.y+")";
     }
 
-    public void overwriteHTMLFile(Player currentPlayer) throws IOException{
+    protected void overwriteHTMLFile(Player currentPlayer) throws IOException{
 
         File f1 = new File("map.htm");
         BufferedWriter bw1 = new BufferedWriter(new FileWriter(f1));
@@ -76,7 +78,7 @@ public class Game {
 
     }
 
-    public void generateHTMLFile() throws IOException{
+    protected void generateHTMLFile() throws IOException{
 
         File f1 = new File("map.htm");
         BufferedWriter bw1 = new BufferedWriter(new FileWriter(f1));
@@ -111,6 +113,20 @@ public class Game {
         bw1.write("</body>");
         bw1.write("</html>");
         bw1.close();
+    }
 
+    protected int getValidInt(String message) {
+        Scanner sc = new Scanner(System.in);
+        sc.useDelimiter("\n");
+
+        int toreturn = 0;
+        try {
+            System.out.println(message);
+            toreturn = sc.nextInt();
+        } catch (InputMismatchException e) {
+
+        }
+        sc.nextLine(); // clears the buffer
+        return toreturn;
     }
 }
